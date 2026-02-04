@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王屋山 - 民宿推荐 | 智绘王屋行</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+/* 全局样式重置+基础配置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== 顶部导航栏 - 与概况页面保持一致 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+
+/* 页面标题 - 醒目简洁 */
+.page-title {
+    max-width: 1000px;
+    margin: 30px auto 20px;
+    padding: 0 24px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2E8B57;
+}
+
+/* 页面容器 - 居中+合理宽度 */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 民宿卡片列表 - 间距均匀 */
+.hotel-list {
+    display: grid;
+    gap: 20px;
+}
+
+/* 民宿卡片 - 还原图片样式 */
+.hotel-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 16px;
+    transition: transform 0.3s;
+}
+.hotel-card:hover {
+    transform: translateY(-3px);
+}
+
+/* 民宿图片容器 - 固定比例 */
+.hotel-img-wrapper {
+    width: 180px;
+    height: 150px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.hotel-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 民宿内容区 - 信息排版 */
+.hotel-card-content {
+    padding: 12px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.hotel-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+.hotel-card-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+.hotel-card-tag {
+    display: inline-block;
+    background-color: #E8F4F8;
+    color: #4299E1;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.hotel-card-address {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 12px;
+}
+.hotel-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.hotel-card-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #E53E3E;
+}
+.hotel-card-btn {
+    background-color: #4299E1;
+    color: #ffffff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.hotel-card-btn:hover {
+    background-color: #3182CE;
+}
+
+/* 滚动到底部提示 - 动态显示（核心新增样式） */
+.scroll-bottom-tip {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 998;
+    display: none; /* 默认隐藏 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+/* 提示显示时的动画 */
+.scroll-bottom-tip.show {
+    display: block;
+    opacity: 1;
+}
+
+/* 预订弹窗 - 核心样式 */
+/* 弹窗遮罩层 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: none; /* 默认隐藏 */
+    align-items: center;
+    justify-content: center;
+}
+/* 弹窗容器 */
+.modal-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    position: relative;
+}
+/* 弹窗关闭按钮 */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+}
+/* 弹窗标题 */
+.modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+/* 弹窗表单样式 */
+.modal-form .form-group {
+    margin-bottom: 15px;
+}
+.modal-form label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+}
+/* 数量选择器 */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+}
+.quantity-selector button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.quantity-selector span {
+    width: 40px;
+    text-align: center;
+    font-size: 14px;
+}
+/* 输入框样式 */
+.modal-form input,
+.modal-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+}
+/* 复选框组 */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.checkbox-item input {
+    width: auto;
+}
+/* 提交按钮 */
+.modal-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #4299E1;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* 页脚 - 统一风格 */
+.footer {
+    background-color: #ffffff;
+    padding: 25px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    margin-top: 40px;
+    box-shadow: 0 -1px 4px rgba(0,0,0,0.08);
+}
+
+/* 响应式适配 - 移动端优化 */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 10px 16px;
+    }
+    .logo {
+        font-size: 16px;
+    }
+    .top-nav {
+        gap: 18px;
+    }
+    .top-nav a {
+        font-size: 14px;
+    }
+    .page-title {
+        font-size: 20px;
+        margin: 20px auto 15px;
+        padding: 0 16px;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .hotel-card {
+        flex-direction: column;
+        gap: 0;
+    }
+    .hotel-img-wrapper {
+        width: 100%;
+        height: 180px;
+    }
+    .hotel-card-content {
+        padding: 16px;
+    }
+    .hotel-card-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    .hotel-card-btn {
+        width: 100%;
+        padding: 8px 0;
+    }
+    /* 移动端提示适配 */
+    .scroll-bottom-tip {
+        font-size: 12px;
+        padding: 8px 16px;
+        bottom: 20px;
+    }
+}
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #2E8B57, #3498db);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+}
+
+/* ===== 顶部导航栏 - 优化版 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 - 使用与概况页面相同的代码 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题 -->
+    <h1 class="page-title">民宿推荐</h1>
+
+    <!-- 核心内容区 - 移除固定的loaded-tip元素 -->
+    <div class="container">
+        <div class="hotel-list">
+            <!-- 1. 老家精品民宿 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20250822143424842.jpg" alt="老家精品民宿" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">老家精品民宿</h3>
+                        <p class="hotel-card-desc">推荐：整洁卫生；农家菜推荐；有自助烧烤</p>
+                        <span class="hotel-card-tag">类型：民宿</span>
+                        <p class="hotel-card-address">王屋山景区入口愚公村新小区四排8号</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥100/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('老家精品民宿')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 山里人家精品民宿 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20250822143443043.jpg" alt="山里人家精品民宿" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">山里人家精品民宿</h3>
+                        <p class="hotel-card-desc">推荐：性价比比较高；农家菜推荐；含带黄河三峡门票</p>
+                        <span class="hotel-card-tag">类型：民宿</span>
+                        <p class="hotel-card-address">王屋山风景区入口愚公村</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥100/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('山里人家精品民宿')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 老乡亲精品民宿 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20251115233435844.png" alt="老乡亲精品民宿" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">老乡亲精品民宿</h3>
+                        <p class="hotel-card-desc">推荐：王屋山特色风格的建筑，旅店配有活动场所，方便休闲娱乐，具有非常强的适居性</p>
+                        <span class="hotel-card-tag">类型：民宿</span>
+                        <p class="hotel-card-address">济源市王屋镇愚公新社区南1排4号</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥200/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('老乡亲精品民宿')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 老房东民宿馆 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20251115233412125.png" alt="老房东民宿馆" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">老房东民宿馆</h3>
+                        <p class="hotel-card-desc">推荐：房屋整洁干净，具有较多绿植，是以中国传统式建筑为基调的具有现代化特色的旅店</p>
+                        <span class="hotel-card-tag">类型：民宿</span>
+                        <p class="hotel-card-address">济源市王屋镇王屋山停车场东50米愚…</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥125/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('老房东民宿馆')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 秋缘农家乐 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20251115233449543.png" alt="秋缘农家乐" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">秋缘农家乐</h3>
+                        <p class="hotel-card-desc">推荐：饭菜可口，房主热情，价格实惠，临近街道</p>
+                        <span class="hotel-card-tag">类型：农家乐</span>
+                        <p class="hotel-card-address">河南省济源市王屋山景区南侧约300米</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥100/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('秋缘农家乐')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 常相聚农家乐 -->
+            <div class="hotel-card">
+                <div class="hotel-img-wrapper">
+                    <img src="./picture-master/20251115233353798.png" alt="常相聚农家乐" class="hotel-card-img">
+                </div>
+                <div class="hotel-card-content">
+                    <div>
+                        <h3 class="hotel-card-title">常相聚农家乐</h3>
+                        <p class="hotel-card-desc">推荐：靠近王屋老街和王屋山景区入口，房间干净，布施整洁</p>
+                        <span class="hotel-card-tag">类型：农家乐</span>
+                        <p class="hotel-card-address">河南省济源市愚公村一排2号</p>
+                    </div>
+                    <div class="hotel-card-footer">
+                        <span class="hotel-card-price">¥100/晚起</span>
+                        <button class="hotel-card-btn" onclick="openModal('常相聚农家乐')">提交预订</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 滚动到底部提示框（新增） -->
+    <div class="scroll-bottom-tip" id="scrollTip">已滑到底部</div>
+
+    <!-- 预订弹窗（默认隐藏） -->
+    <div class="modal-overlay" id="bookingModal">
+        <div class="modal-container">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 class="modal-title" id="modalHotelName">预订民宿</h3>
+            <form class="modal-form">
+                <!-- 预定数量 -->
+                <div class="form-group">
+                    <label>预定数量：</label>
+                    <div class="quantity-selector">
+                        <button type="button" onclick="changeQuantity(-1)">-</button>
+                        <span id="quantity">1</span>
+                        <button type="button" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <!-- 入住日期 -->
+                <div class="form-group">
+                    <label>入住日期：</label>
+                    <input type="date" value="2026-02-05" min="2026-02-05">
+                </div>
+
+                <!-- 退房日期 -->
+                <div class="form-group">
+                    <label>退房日期：</label>
+                    <input type="date" placeholder="选择退房日期" min="2026-02-06">
+                </div>
+
+                <!-- 餐饮需求 -->
+                <div class="form-group">
+                    <label>餐饮需求：</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" checked>
+                            <span>早餐</span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" checked>
+                            <span>午餐</span>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" checked>
+                            <span>晚餐</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 忌口要求 -->
+                <div class="form-group">
+                    <label>忌口要求：</label>
+                    <textarea placeholder="如有忌口请说明（如：不吃辣、素食等）"></textarea>
+                </div>
+
+                <!-- 提交按钮 -->
+                <button type="button" class="modal-submit">提交表单</button>
+            </form>
+        </div>
+    </div>
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- 页脚 - 统一风格 -->
+    <footer class="footer">
+        <p>© 2025 王屋山旅游官网 版权所有 | 豫ICP备12345678号</p>
+    </footer>
+
+    <!-- 弹窗控制+滚动提示脚本（新增滚动检测逻辑） -->
+    <script>
+        // 打开弹窗
+        function openModal(hotelName) {
+            document.getElementById('modalHotelName').textContent = `预订${hotelName}`;
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        // 关闭弹窗
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        // 数量选择器
+        function changeQuantity(step) {
+            let quantity = parseInt(document.getElementById('quantity').textContent);
+            quantity = Math.max(1, quantity + step); // 最少1间
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        // 点击遮罩层关闭弹窗
+        document.getElementById('bookingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // 滚动到底部提示核心逻辑
+        const scrollTip = document.getElementById('scrollTip');
+        let tipTimer = null; // 定时器，用于自动隐藏提示
+
+        // 检测滚动位置
+        function checkScrollPosition() {
+            // 页面总高度 - 可视区域高度 - 滚动距离 < 100px 时，判定为到底部
+            const isBottom = (document.documentElement.scrollHeight - document.documentElement.clientHeight - window.scrollY) < 100;
+            
+            if (isBottom) {
+                // 显示提示
+                scrollTip.classList.add('show');
+                // 清除之前的定时器，避免重复触发
+                clearTimeout(tipTimer);
+                // 3秒后自动隐藏提示
+                tipTimer = setTimeout(() => {
+                    scrollTip.classList.remove('show');
+                }, 3000);
+            } else {
+                // 未到底部时隐藏提示
+                scrollTip.classList.remove('show');
+                clearTimeout(tipTimer);
+            }
+        }
+
+        // 监听滚动事件
+        window.addEventListener('scroll', checkScrollPosition);
+        // 初始化检测一次
+        checkScrollPosition();
+        // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

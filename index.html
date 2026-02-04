@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王屋山旅游官网 - 智绘王屋行</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <!-- ./picture-master/20250822142507973.jpg -->
+                 <!-- /picture-master/./picture-master/ -->
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. 顶部轮播图区域 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <!-- ./picture-master/20250822142507973.jpg -->
+                <img src="./picture-master/20250822181401518.jpg" alt="王屋山全景">
+                <div class="slide-caption">
+                    <h3>王屋山全景</h3>
+                    <p>巍巍太行，千年道境</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="./picture-master/20250822181415792.jpg" alt="天坛峰风光">
+                <div class="slide-caption">
+                    <h3>天坛峰风光</h3>
+                    <p>道教圣地，一览众山</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="./picture-master/20250822181435909.jpg" alt="王屋山红叶">
+                <div class="slide-caption">
+                    <h3>王屋山红叶</h3>
+                    <p>层林尽染，美不胜收</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="./picture-master/20250822181451334.jpg" alt="王屋山红叶">
+                <div class="slide-caption">
+                    <h3>山间溪流</h3>
+                    <p>清泉石上，自然之韵</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="./picture-master/20250822181502317.jpg" alt="王屋山红叶">
+                <div class="slide-caption">
+                    <h3>云雾缭绕</h3>
+                    <p>云海奇观，仙境王屋</p>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="./picture-master/20250822181526290.jpg" alt="愚公移山精神">
+                <div class="slide-caption">
+                    <h3>王屋秋韵</h3>
+                    <p>一叶知秋色，一山藏诗情</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 轮播分页器 -->
+        <div class="swiper-pagination"></div>
+        
+        <!-- 轮播左右箭头 -->
+        <div class="swiper-button-prev">
+            <i class="fa-solid fa-chevron-left"></i>
+        </div>
+        <div class="swiper-button-next">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+        
+        <!-- 轮播进度条 -->
+        <div class="swiper-progress">
+            <div class="swiper-progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- 2. 横向导航栏（概况/风景/民宿/美食） -->
+    <nav class="tab-nav">
+        <div class="container">
+            <div class="tab-grid">
+                <a href="overview.html" class="tab-item">
+                    <div class="tab-icon">
+                        <i class="fa-solid fa-map-marked-alt"></i>
+                    </div>
+                    <h3>概况</h3>
+                    <p>了解王屋山</p>
+                </a>
+                <a href="scenery.html" class="tab-item">
+                    <div class="tab-icon">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                    <h3>风景</h3>
+                    <p>欣赏自然美景</p>
+                </a>
+                <a href="homestay.html" class="tab-item">
+                    <div class="tab-icon">
+                        <i class="fa-solid fa-house-chimney"></i>
+                    </div>
+                    <h3>民宿</h3>
+                    <p>体验山居生活</p>
+                </a>
+                <a href="food.html" class="tab-item">
+                    <div class="tab-icon">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3>美食</h3>
+                    <p>品尝地道风味</p>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. 旅游路线推荐区域 -->
+    <section class="route-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">旅游路线推荐</h2>
+                <p class="section-subtitle">精选路线，畅游王屋</p>
+            </div>
+            
+            <div class="route-list">
+                <!-- 路线1 -->
+                <div class="route-card">
+                    <div class="route-tag">经典路线</div>
+                    <div class="route-img">
+                        <img src="https://youimg1.c-ctrip.com/target/100m0k000000bdkq533CC.jpg" alt="步行登山路线">
+                        <div class="route-overlay">
+                            <span><i class="fa-solid fa-clock"></i> 4-5小时</span>
+                            <span><i class="fa-solid fa-hiking"></i> 挑战级</span>
+                        </div>
+                    </div>
+                    <div class="route-content">
+                        <h3 class="route-title">步行登山路线</h3>
+                        <p class="route-desc">道境广场（售票处）→ 王屋老街 → 上阳台帖 → 愚公故居 → 愚公移山像 → 地质博物馆 → 财神殿 → 灵官殿 → 玄坛殿 → 太乙池 → 舍身崖 → 总仙宫（天坛极顶）</p>
+                        <div class="route-meta">
+                            <div class="route-info">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>全程约4-5小时</span>
+                            </div>
+                            <div class="route-info">
+                                <i class="fa-solid fa-shoe-prints"></i>
+                                <span>徒步难度：★★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 路线2 -->
+                <div class="route-card">
+                    <div class="route-tag">推荐路线</div>
+                    <div class="route-img">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.e1a46f5623813332254b84df74846f3e?rik=HchDI%2bbUJldbtQ&riu=http%3a%2f%2fwww.jiyuantour.com%2fadminz%2fkindeditor%2fattached%2fimage%2f20220224%2f20220224095811_13067.jpg&ehk=cQd0xuVS2GprqRrhsnxlgTIglmy7GSo75QUKAeFW7jY%3d&risl=&pid=ImgRaw&r=0" alt="索道步行路线">
+                        <div class="route-overlay">
+                            <span><i class="fa-solid fa-clock"></i> 2-3小时</span>
+                            <span><i class="fa-solid fa-hiking"></i> 中等难度</span>
+                        </div>
+                    </div>
+                    <div class="route-content">
+                        <h3 class="route-title">索道步行路线</h3>
+                        <p class="route-desc">道境广场（售票处）→ 地质博物馆 → 索道下站 → 索道上站 → 扶条阁 → 白皮松 → 紫薇长廊 → 清风台 → 休闲服务区 → 太乙池 → 舍身崖 → 总仙宫（天坛极顶）</p>
+                        <div class="route-meta">
+                            <div class="route-info">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>全程约2-3小时</span>
+                            </div>
+                            <div class="route-info">
+                                <i class="fa-solid fa-shoe-prints"></i>
+                                <span>徒步难度：★★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 路线3 -->
+                <div class="route-card">
+                    <div class="route-tag">轻松路线</div>
+                    <div class="route-img">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.36ac10aef470bb438d9afe289a56f3e8?rik=Q3%2b3IyGZDN4bvw&riu=http%3a%2f%2fn.sinaimg.cn%2fsinacn11%2f221%2fw640h381%2f20180408%2f694d-fyvtmxc8117935.jpg&ehk=TKWooAdGDceLLkQCke8Zes6MAPoM7uGXANj6fXCk2Mk%3d&risl=&pid=ImgRaw&r=0" alt="索道游览路线">
+                        <div class="route-overlay">
+                            <span><i class="fa-solid fa-clock"></i> 1.5-2小时</span>
+                            <span><i class="fa-solid fa-hiking"></i> 轻松级</span>
+                        </div>
+                    </div>
+                    <div class="route-content">
+                        <h3 class="route-title">索道游览路线</h3>
+                        <p class="route-desc">道境广场（售票处）→ 地质博物馆 → 索道下站 → 索道上站 → 扶条阁 → 白皮松 → 紫薇长廊 → 时空隧道 → 飞天崖入口 → 清风台 → 休闲服务区 → 总仙宫（天坛极顶）</p>
+                        <div class="route-meta">
+                            <div class="route-info">
+                                <i class="fa-solid fa-clock"></i>
+                                <span>全程约1.5-2小时</span>
+                            </div>
+                            <div class="route-info">
+                                <i class="fa-solid fa-shoe-prints"></i>
+                                <span>徒步难度：★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <!-- 底部版权 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅">
+                        <div>
+                            <h3>愚公智旅</h3>
+                            <p>智慧文旅赋能乡村振兴</p>
+                        </div>
+                    </div>
+                    <p class="footer-desc">智慧文旅赋能乡村振兴，青春力量描绘王屋新篇</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>快速导航</h4>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="overview.html">概况</a></li>
+                        <li><a href="scenery.html">风景</a></li>
+                        <li><a href="homestay.html">民宿</a></li>
+                        <li><a href="food.html">美食</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-phone"></i> 0371-12345678</li>
+                        <li><i class="fa-solid fa-envelope"></i> info@wangwushan.com</li>
+                        <li><i class="fa-solid fa-location-dot"></i> 河南省济源市王屋山风景区</li>
+                    </ul>
+                </div>
+                
+                <!-- <div class="footer-social">
+                    <h4>关注我们</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-douyin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-xiaohongshu"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-weibo"></i></a>
+                    </div>
+                </div> -->
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 王屋山旅游官网 版权所有 | 豫ICP备12345678号</p>
+                <p>本网站由河南大学中原发展研究院指导开发</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王屋山 - 团队风采 | 智绘王屋行</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+/* ===== 全局样式重置 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    color: #333;
+    line-height: 1.6;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* ===== 顶部导航栏 - 优化版 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+
+/* ===== 页面标题区 ===== */
+.hero-section {
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.9) 0%, rgba(52, 152, 219, 0.9) 100%);
+    padding: 60px 20px;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
+    border-radius: 0 0 40px 40px;
+    box-shadow: 0 10px 30px rgba(46, 139, 87, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+    background-size: cover;
+}
+.page-title {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+.page-subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+.page-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #FFD700;
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+/* ===== 团队介绍卡片 ===== */
+.team-intro {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(46, 139, 87, 0.1);
+}
+.team-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #2E8B57, #3498db);
+}
+.team-intro h2 {
+    color: #2E8B57;
+    font-size: 28px;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+.team-intro h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #FF6B6B;
+}
+.team-intro p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+.team-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2E8B57;
+    margin-bottom: 5px;
+}
+.stat-label {
+    font-size: 14px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ===== 页面容器 ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+}
+
+/* ===== 团队内容列表 ===== */
+.team-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* ===== 团队内容项 ===== */
+.team-item {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(46, 139, 87, 0.1);
+}
+.team-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(46, 139, 87, 0.2);
+}
+.team-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(46,139,87,0.1) 0%, rgba(52,152,219,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+.team-item:hover::before {
+    opacity: 1;
+}
+
+/* 团队图片容器 */
+.team-img-wrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.team-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.team-item:hover .team-item-img {
+    transform: scale(1.1);
+}
+
+/* 图片覆盖层 */
+.img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.team-item:hover .img-overlay {
+    opacity: 1;
+}
+
+/* 团队内容描述 */
+.team-item-desc {
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+    background: white;
+}
+.team-item-desc h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    position: relative;
+    display: inline-block;
+}
+.team-item-desc h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2E8B57;
+    transition: width 0.3s ease;
+}
+.team-item:hover .team-item-desc h3::after {
+    width: 100%;
+}
+.team-item-desc p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* 团队标签 */
+.team-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+.team-tag {
+    background: rgba(46, 139, 87, 0.1);
+    color: #2E8B57;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+.team-tag:hover {
+    background: #2E8B57;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 团队时间 */
+.team-date {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 107, 107, 0.9);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 3;
+    box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+}
+
+/* ===== 回到顶部按钮 ===== */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #2E8B57, #3498db);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+}
+
+/* ===== 动画效果 ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.team-item {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* 为每个卡片设置不同的延迟，创建错落效果 */
+.team-item:nth-child(1) { animation-delay: 0.1s; }
+.team-item:nth-child(2) { animation-delay: 0.2s; }
+.team-item:nth-child(3) { animation-delay: 0.3s; }
+.team-item:nth-child(4) { animation-delay: 0.4s; }
+.team-item:nth-child(5) { animation-delay: 0.5s; }
+.team-item:nth-child(6) { animation-delay: 0.6s; }
+.team-item:nth-child(7) { animation-delay: 0.7s; }
+.team-item:nth-child(8) { animation-delay: 0.8s; }
+
+/* ===== 响应式适配 ===== */
+@media (max-width: 992px) {
+    .team-list {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .header-wrapper {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px 20px;
+    }
+    
+    .logo-img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .logo-main {
+        font-size: 20px;
+    }
+    
+    .top-nav {
+        gap: 6px;
+    }
+    
+    .nav-link {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    .hero-section {
+        padding: 40px 20px;
+        border-radius: 0 0 30px 30px;
+    }
+    
+    .page-title {
+        font-size: 28px;
+    }
+    
+    .page-subtitle {
+        font-size: 16px;
+    }
+    
+    .team-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .team-intro {
+        padding: 25px;
+        margin: 0 20px 40px;
+    }
+    
+    .team-stats {
+        gap: 30px;
+    }
+    
+    .stat-number {
+        font-size: 28px;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    .team-stats {
+        gap: 20px;
+    }
+    
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    .team-tag {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link active">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题区 -->
+    <div class="hero-section">
+        <h1 class="page-title">团队风采</h1>
+        <p class="page-subtitle">青春力量赋能乡村振兴，智慧描绘王屋新篇章</p>
+    </div>
+
+    <!-- 团队介绍 -->
+    <div class="team-intro">
+        <h2>愚公智旅 · 青春力量</h2>
+        <p>我们是一支由青年大学生组成的乡村振兴实践团队，致力于通过现代科技与文化创意，挖掘王屋山深厚的历史文化底蕴，推动乡村文旅融合发展，为传统村落注入新的生机与活力。</p>
+        <div class="team-stats">
+            <div class="stat-item">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">核心成员</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">实践项目</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">服务时长</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5+</div>
+                <div class="stat-label">合作村落</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心内容区 -->
+    <div class="container">
+        <div class="team-list" id="teamList">
+            <!-- 1. 团队图片1 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.07
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822181712536.jpg" alt="团队合影" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>团队启程 · 初心如磐</h3>
+                    <p>迎着朝阳，怀着梦想，我们整装出发，踏上乡村振兴的征程，用青春的脚步丈量王屋山的每一寸土地。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">启程仪式</span>
+                        <span class="team-tag">团队合影</span>
+                        <span class="team-tag">青春誓言</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 团队图片2 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.07
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20251106163730175.jpg" alt="团队合影" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>青春力量赋能乡村振兴</h3>
+                    <p>王屋山研学行——我们深入田间地头，与村民同吃同住，用所学知识为乡村发展注入新的活力。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">乡村调研</span>
+                        <span class="team-tag">社会实践</span>
+                        <span class="team-tag">青年担当</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 团队图片3 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.08
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20251106165036340.jpg" alt="团队合影" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>踏访愚公故里，传承精神根脉</h3>
+                    <p>在愚公雕像前，我们重温愚公移山精神，感悟传统文化的深厚底蕴，立志做新时代的"愚公"。<p>
+                    <div class="team-tags">
+                        <span class="team-tag">文化传承</span>
+                        <span class="team-tag">精神学习</span>
+                        <span class="team-tag">红色教育</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 团队图片4 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.08
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822175021888.jpg" alt="王屋山牌楼" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>清凉一夏 · 王屋山旅游攻略</h3>
+                    <p>我们精心策划制作王屋山夏季旅游攻略，为游客提供全方位的旅游指导，助力当地旅游业发展。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">旅游攻略</span>
+                        <span class="team-tag">景区推广</span>
+                        <span class="team-tag">服务游客</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 团队图片5 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.08
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822174854954.jpg" alt="团队合影" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>云载愚光 智绘山乡</h3>
+                    <p>"愚公智旅"乡村文旅振兴促进团整装待发，我们运用数字技术为传统乡村插上智慧的翅膀。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">数字乡村</span>
+                        <span class="team-tag">智慧旅游</span>
+                        <span class="team-tag">科技赋能</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 团队图片6 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.09
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822175345074.jpg" alt="乡村场景" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>扎根基层听民意，实践考察绘新篇</h3>
+                    <p>深入乡村一线，倾听村民心声，了解真实需求，为乡村振兴绘制科学合理的规划蓝图。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">基层调研</span>
+                        <span class="team-tag">民意收集</span>
+                        <span class="team-tag">规划制定</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. 团队图片7 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.09
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822175134841.jpg" alt="愚公雕像" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>启程青春智旅，叩问大愚元新</h3>
+                    <p>在愚公精神的指引下，我们以青春之智，探索乡村振兴新路径，为人绘山乡贡献力量。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">青春智旅</span>
+                        <span class="team-tag">创新探索</span>
+                        <span class="team-tag">责任担当</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. 团队图片8 -->
+            <div class="team-item">
+                <!-- <div class="team-date">
+                    <i class="fa-regular fa-calendar"></i> 2024.10
+                </div> -->
+                <div class="team-img-wrapper">
+                    <img src="./picture-master/20250822175242188.jpg" alt="王屋山风景" class="team-item-img">
+                    <div class="img-overlay"></div>
+                </div>
+                <div class="team-item-desc">
+                    <h3>探王屋地质奇观，绘乡村振兴蓝图</h3>
+                    <p>考察王屋山独特的地质地貌，结合自然资源优势，为乡村振兴绘制可持续发展蓝图。</p>
+                    <div class="team-tags">
+                        <span class="team-tag">地质考察</span>
+                        <span class="team-tag">资源利用</span>
+                        <span class="team-tag">可持续发展</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 卡片点击效果
+        document.querySelectorAll('.team-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!e.target.closest('.team-tag')) {
+                    const title = this.querySelector('h3').textContent;
+                    showMessage(`查看详情: ${title}`, '#2E8B57');
+                }
+            });
+        });
+
+        // 标签点击效果
+        document.querySelectorAll('.team-tag').forEach(tag => {
+            tag.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const tagText = this.textContent;
+                showMessage(`筛选: ${tagText}`, '#3498db');
+            });
+        });
+
+        // 显示消息提示
+        function showMessage(msg, color) {
+            const msgEl = document.createElement('div');
+            msgEl.textContent = msg;
+            msgEl.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${color};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                z-index: 9999;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2s forwards;
+            `;
+            document.body.appendChild(msgEl);
+            setTimeout(() => {
+                if (msgEl.parentNode) {
+                    document.body.removeChild(msgEl);
+                }
+            }, 2300);
+        }
+
+        // 添加CSS动画定义
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 图片懒加载
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.team-item-img');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.getAttribute('src');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        });
+
+        // 鼠标悬停效果增强
+        document.querySelectorAll('.team-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // 导航栏选中状态
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // 根据当前页面自动设置active状态
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || 
+                    (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // 页面加载时设置active状态
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
+        console.log('团队页面加载完成！');
+    </script>
+</body>
+</html>

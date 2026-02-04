@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>愚公智旅 - 团队主页 | 智绘王屋行</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+        /* 全局样式重置+基础配置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== 顶部导航栏（优化版）===== */
+        .top-header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #E1E8ED;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid #2E8B57;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2E8B57, #4682B4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            color: #78909C;
+            font-weight: 500;
+            margin-top: -2px;
+        }
+
+        .top-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            color: #546E7A;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #2E8B57;
+            background: rgba(46, 139, 87, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: #2E8B57;
+            background: rgba(46, 139, 87, 0.1);
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: #2E8B57;
+            border-radius: 2px;
+        }
+
+        .nav-link i {
+            font-size: 16px;
+        }
+
+        /* ===== 响应式适配 ===== */
+        @media (max-width: 768px) {
+            .header-wrapper {
+                flex-direction: column;
+                gap: 16px;
+                padding: 16px 20px;
+            }
+            
+            .logo-img {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-main {
+                font-size: 20px;
+            }
+            
+            .top-nav {
+                gap: 6px;
+            }
+            
+            .nav-link {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+
+        /* 页面标题区 */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(46, 139, 87, 0.9) 0%, rgba(52, 152, 219, 0.9) 100%);
+            padding: 60px 20px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 10px 30px rgba(46, 139, 87, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        .page-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .page-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #FFD700;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+        }
+
+        /* 团队头部 - 现代化设计 */
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(46, 139, 87, 0.1);
+            transition: all 0.4s ease;
+        }
+        .team-header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(46, 139, 87, 0.15);
+        }
+        .team-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(46,139,87,0.05) 0%, rgba(52,152,219,0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .team-header:hover::before {
+            opacity: 1;
+        }
+        .team-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        .team-header:hover .team-logo {
+            transform: scale(1.05);
+        }
+        .team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-title-box {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+        .team-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            position: relative;
+            display: inline-block;
+        }
+        .team-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #2E8B57;
+            transition: width 0.3s ease;
+        }
+        .team-header:hover .team-title::after {
+            width: 100%;
+        }
+        .team-slogan {
+            font-size: 20px;
+            color: #4682B4;
+            margin-bottom: 15px;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        .team-desc {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 板块标题样式 */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 40px 0 25px;
+            padding-left: 15px;
+            border-left: 5px solid #2E8B57;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateX(-100%) translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #FF6B6B;
+            border-radius: 50%;
+        }
+
+        /* 指导老师列表 */
+        .teacher-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .teacher-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(46, 139, 87, 0.1);
+        }
+        .teacher-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(46, 139, 87, 0.15);
+        }
+        .teacher-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2E8B57, #3498db);
+        }
+        .teacher-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #003366;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+        .teacher-name::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #FF6B6B;
+            transition: width 0.3s ease;
+        }
+        .teacher-item:hover .teacher-name::after {
+            width: 100%;
+        }
+        .teacher-title {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 团队成员区域 */
+        .member-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(46, 139, 87, 0.1);
+        }
+        .member-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(46, 139, 87, 0.15);
+        }
+        .group-tag {
+            background: linear-gradient(135deg, #2E8B57, #3498db);
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+            transition: all 0.3s ease;
+        }
+        .member-group:hover .group-tag {
+            transform: scale(1.05);
+        }
+        .member-names {
+            font-size: 17px;
+            color: #333;
+            flex: 1;
+            line-height: 1.8;
+        }
+
+        /* 关注我们区域 */
+        .follow-section {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .follow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .follow-item:hover {
+            transform: translateY(-8px);
+        }
+        .follow-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .follow-icon img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        .follow-item:hover .follow-icon img {
+            transform: scale(1.2);
+        }
+        .follow-name {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .follow-item:hover .follow-name {
+            color: #2E8B57;
+        }
+        .follow-item:nth-child(1) .follow-icon { background-color: #000000; }
+        .follow-item:nth-child(2) .follow-icon { background-color: #FF2442; }
+        .follow-item:nth-child(3) .follow-icon { background-color: #FF7D00; }
+        .follow-item:nth-child(1):hover .follow-icon { background-color: #333; }
+        .follow-item:nth-child(2):hover .follow-icon { background-color: #FF4D6B; }
+        .follow-item:nth-child(3):hover .follow-icon { background-color: #FF9A3D; }
+
+        /* 二维码弹窗样式 */
+        .qrcode-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .qrcode-modal.active {
+            display: flex;
+        }
+        .qrcode-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+        .qrcode-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qrcode-close:hover {
+            background: rgba(46, 139, 87, 0.1);
+            color: #2E8B57;
+            transform: rotate(90deg);
+        }
+        .qrcode-platform {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .qrcode-platform i {
+            font-size: 32px;
+        }
+        .qrcode-platform.douyin { color: #000; }
+        .qrcode-platform.xiaohongshu { color: #FF2442; }
+        .qrcode-platform.video { color: #07C160; }
+        .qrcode-image {
+            width: 250px;
+            height: 250px;
+            margin: 20px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 10px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qrcode-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .qrcode-tips {
+            color: #666;
+            font-size: 14px;
+            margin-top: 20px;
+            line-height: 1.5;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .qrcode-tips i {
+            color: #2E8B57;
+            margin-right: 5px;
+        }
+
+        /* 弹窗动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2E8B57, #3498db);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+            z-index: 998;
+            backdrop-filter: blur(10px);
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #666;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .bottom-nav-item i {
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .bottom-nav-item.active {
+            color: #2E8B57;
+            background: rgba(46, 139, 87, 0.1);
+        }
+        .bottom-nav-item:hover {
+            color: #2E8B57;
+            transform: translateY(-2px);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 20px;
+                border-radius: 0 0 30px 30px;
+            }
+            .page-title {
+                font-size: 28px;
+            }
+            .page-subtitle {
+                font-size: 16px;
+            }
+            .team-header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 25px;
+                text-align: center;
+            }
+            .team-logo {
+                width: 100px;
+                height: 100px;
+            }
+            .team-title {
+                font-size: 28px;
+            }
+            .team-slogan {
+                font-size: 18px;
+            }
+            .teacher-list {
+                grid-template-columns: 1fr;
+            }
+            .follow-section {
+                gap: 25px;
+            }
+            .follow-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .member-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .group-tag {
+                min-width: auto;
+                padding: 8px 15px;
+            }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            .qrcode-content {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            .qrcode-image {
+                width: 200px;
+                height: 200px;
+            }
+            .qrcode-platform {
+                font-size: 24px;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .team-header, .teacher-item, .member-group, .follow-section {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .team-header { animation-delay: 0.1s; }
+        .teacher-item:nth-child(1) { animation-delay: 0.2s; }
+        .teacher-item:nth-child(2) { animation-delay: 0.3s; }
+        .teacher-item:nth-child(3) { animation-delay: 0.4s; }
+        .member-group:nth-child(1) { animation-delay: 0.5s; }
+        .member-group:nth-child(2) { animation-delay: 0.6s; }
+        .member-group:nth-child(3) { animation-delay: 0.7s; }
+        .follow-section { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link active">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题区 -->
+    <div class="hero-section">
+        <h1 class="page-title">愚公智旅团队</h1>
+        <p class="page-subtitle">智慧文旅赋能乡村振兴，青春力量描绘王屋新篇</p>
+    </div>
+
+    <!-- 核心内容区 -->
+    <div class="container">
+        <!-- 团队头部 -->
+        <div class="team-header">
+            <div class="team-logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅logo">
+            </div>
+            <div class="team-title-box">
+                <h2 class="team-title">愚公智旅</h2>
+                <p class="team-slogan">——智慧文旅赋能乡村振兴</p>
+                <p class="team-desc">本团队以青春创新实践赋能王屋山乡村振兴，借智慧文旅激活乡村活力，解码其振兴密码，彰显青年助力乡村振兴的"智创"与担当。我们致力于通过数字化、智慧化手段，为传统乡村注入新的生机与活力。</p>
+            </div>
+        </div>
+
+        <!-- 指导老师板块 -->
+        <h3 class="section-title">指导老师</h3>
+        <div class="teacher-list">
+            <div class="teacher-item">
+                <div class="teacher-name">张霞老师</div>
+                <div class="teacher-title">河南大学中原发展研究院 副教授</div>
+            </div>
+            <div class="teacher-item">
+                <div class="teacher-name">朱世欣老师</div>
+                <div class="teacher-title">河南大学中原发展研究院 副教授</div>
+            </div>
+            <div class="teacher-item">
+                <div class="teacher-name">陈明芳老师</div>
+                <div class="teacher-title">河南大学高级金融学院 助教</div>
+            </div>
+        </div>
+
+        <!-- 团队成员板块 -->
+        <h3 class="section-title">团队成员</h3>
+        <div class="member-group">
+            <div class="group-tag">技术组</div>
+            <div class="member-names">张子垚、贾茜蓓、李佳琳、田烨</div>
+        </div>
+        <div class="member-group">
+            <div class="group-tag">商业组</div>
+            <div class="member-names">李宜卿、席铭泽、李金谦、杜铭玥、吕美琪</div>
+        </div>
+        <div class="member-group">
+            <div class="group-tag">宣传组</div>
+            <div class="member-names">叶智珺</div>
+        </div>
+
+        <!-- 关注我们板块 -->
+        <h3 class="section-title">关注我们</h3>
+        <div class="follow-section">
+            <div class="follow-item" onclick="showQRCode('抖音', '#000000', 'douyin')">
+                <div class="follow-icon">
+                    <img src="./picture-master/20250823181956988.jpg" alt="抖音">
+                </div>
+                <div class="follow-name">抖音</div>
+            </div>
+            <div class="follow-item" onclick="showQRCode('小红书', '#FF2442', 'xiaohongshu')">
+                <div class="follow-icon">
+                    <img src="./picture-master/20250823182005469.jpg" alt="小红书">
+                </div>
+                <div class="follow-name">小红书</div>
+            </div>
+            <div class="follow-item" onclick="showQRCode('视频号', '#07C160', 'video')">
+                <div class="follow-icon">
+                    <img src="./picture-master/20250823182022930.jpg" alt="视频号">
+                </div>
+                <div class="follow-name">视频号</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 二维码弹窗 -->
+    <div class="qrcode-modal" id="qrcodeModal">
+        <div class="qrcode-content">
+            <button class="qrcode-close" onclick="closeQRCode()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="qrcode-platform" id="platformTitle">
+                <i id="platformIcon" class="fab fa-tiktok"></i>
+                <span id="platformName">抖音</span>
+            </div>
+            <div class="qrcode-image" id="qrcodeImage">
+                <img id="qrcodeImg" src="" alt="二维码">
+            </div>
+            <div class="qrcode-tips">
+                <i class="fas fa-info-circle"></i>
+                <span id="qrTips">打开抖音APP，扫描二维码关注我们</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 二维码数据
+        const qrCodeData = {
+            '抖音': {
+                icon: 'fab fa-tiktok',
+                color: 'douyin',
+                tips: '打开抖音APP，扫描二维码关注我们',
+                qrCodeUrl: 'https://gitee.com/zai-mengjie/pict/raw/main/image%20copy.png'
+            },
+            '小红书': {
+                icon: 'fab fa-weixin',
+                color: 'xiaohongshu',
+                tips: '打开小红书APP，扫描二维码关注我们',
+                qrCodeUrl: 'https://gitee.com/zai-mengjie/pict/raw/main/image.png'
+            },
+            '视频号': {
+                icon: 'fab fa-weixin',
+                color: 'video',
+                tips: '打开微信，扫描二维码关注我们的视频号',
+                qrCodeUrl: './picture-master/20250822210323014.jpg'
+            }
+        };
+
+        // 显示二维码弹窗
+        function showQRCode(platform, color, platformClass) {
+            const modal = document.getElementById('qrcodeModal');
+            const platformTitle = document.getElementById('platformTitle');
+            const platformIcon = document.getElementById('platformIcon');
+            const platformName = document.getElementById('platformName');
+            const qrcodeImg = document.getElementById('qrcodeImg');
+            const qrTips = document.getElementById('qrTips');
+            
+            // 设置平台信息
+            platformName.textContent = platform;
+            platformTitle.className = `qrcode-platform ${platformClass}`;
+            
+            // 设置图标
+            platformIcon.className = qrCodeData[platform].icon;
+            
+            // 设置二维码图片
+            qrcodeImg.src = qrCodeData[platform].qrCodeUrl;
+            qrcodeImg.alt = `${platform}二维码`;
+            
+            // 设置提示文字
+            qrTips.textContent = qrCodeData[platform].tips;
+            
+            // 显示弹窗
+            modal.classList.add('active');
+            
+            // 禁止背景滚动
+            document.body.style.overflow = 'hidden';
+            
+            showMessage(`正在打开${platform}二维码`, color);
+        }
+
+        // 关闭二维码弹窗
+        function closeQRCode() {
+            const modal = document.getElementById('qrcodeModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击弹窗外部关闭
+        document.getElementById('qrcodeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQRCode();
+            }
+        });
+
+        // 显示消息提示
+        function showMessage(msg, color) {
+            const msgEl = document.createElement('div');
+            msgEl.textContent = msg;
+            msgEl.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${color};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                z-index: 9999;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2s forwards;
+            `;
+            document.body.appendChild(msgEl);
+            setTimeout(() => {
+                if (msgEl.parentNode) {
+                    document.body.removeChild(msgEl);
+                }
+            }, 2300);
+        }
+
+        // 添加CSS动画定义
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // 卡片点击效果
+        document.querySelectorAll('.teacher-item, .member-group').forEach(item => {
+            item.addEventListener('click', function() {
+                const text = this.querySelector('.teacher-name, .group-tag').textContent;
+                showMessage(`点击查看: ${text}`, '#2E8B57');
+            });
+        });
+
+        // 团队头部悬浮效果
+        const teamHeader = document.querySelector('.team-header');
+        teamHeader.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        teamHeader.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+
+        // 导航栏选中状态
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        // 根据当前页面自动设置active状态
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref === currentPage || 
+                    (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // 页面加载时设置active状态
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+
+        console.log('团队主页加载完成！');
+    </script>
+</body>
+</html>

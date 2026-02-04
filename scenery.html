@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王屋山 - 风景 | 智绘王屋行</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+/* 全局样式重置+基础配置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== 顶部导航栏 - 优化版 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+/* 页面容器 - 居中+合理宽度 */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 分类标题 - 醒目且精致 */
+.category-title {
+    display: inline-block;
+    background: linear-gradient(90deg, #2E8B57, #8B5A2B);
+    color: #ffffff;
+    padding: 8px 22px;
+    border-radius: 25px;
+    margin: 30px 0 20px;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 景点卡片列表 - 间距均匀 */
+.scenery-list {
+    display: grid;
+    gap: 24px;
+    margin-bottom: 10px;
+}
+
+/* 景点卡片 - 精致卡片样式 */
+.scenery-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.scenery-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* 图片容器 - 关键优化：固定比例，避免变形 */
+.scenery-img-wrapper {
+    width: 100%;
+    height: 240px; /* 统一图片显示高度 */
+    background-color: #f5f5f5; /* 图片加载前的占位背景 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+/* 景点图片 - 等比例缩放，填充容器，不拉伸 */
+.scenery-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 核心属性：裁剪多余部分，保持比例 */
+    object-position: center; /* 居中显示图片主体 */
+    transition: transform 0.5s ease;
+}
+/* 鼠标悬浮图片轻微放大，增加交互 */
+.scenery-card:hover .scenery-card-img {
+    transform: scale(1.05);
+}
+
+/* 卡片内容区 - 合理内边距 */
+.scenery-card-content {
+    padding: 20px;
+}
+/* 景点标题 - 突出 */
+.scenery-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2E8B57;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.scenery-card-title i {
+    font-size: 18px;
+}
+/* 景点描述 - 易读 */
+.scenery-card-desc {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+/* 景点元信息 - 浅灰色+小字号 */
+.scenery-card-meta {
+    font-size: 13px;
+    color: #999;
+    display: flex;
+    gap: 20px;
+}
+.scenery-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 页脚 - 简洁统一 */
+.footer {
+    background-color: #ffffff;
+    padding: 25px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+    margin-top: 40px;
+    box-shadow: 0 -1px 4px rgba(0,0,0,0.08);
+}
+
+/* 响应式适配 - 移动端优化 */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 10px 16px;
+    }
+    .logo {
+        font-size: 16px;
+    }
+    .top-nav {
+        gap: 18px;
+    }
+    .top-nav a {
+        font-size: 14px;
+    }
+    .container {
+        padding: 0 16px;
+    }
+    .category-title {
+        font-size: 14px;
+        padding: 6px 18px;
+        margin: 20px 0 15px;
+    }
+    /* 移动端图片高度适配 */
+    .scenery-img-wrapper {
+        height: 180px;
+    }
+    .scenery-card-content {
+        padding: 16px;
+    }
+    .scenery-card-title {
+        font-size: 18px;
+    }
+    .scenery-card-desc {
+        font-size: 14px;
+    }
+    .scenery-card-meta {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 12px;
+    }
+}
+/* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2E8B57, #3498db);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 核心内容区 - 严格按图片模块划分 -->
+    <div class="container">
+        <!-- 1. 核心人文景点分类 -->
+        <h2 class="category-title">核心人文景点</h2>
+        <div class="scenery-list">
+            <!-- 天坛极顶 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755726297732.png" alt="天坛极顶" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        天坛极顶
+                    </h3>
+                    <p class="scenery-card-desc">王屋山主峰，海拔1715米，道教圣地。轩辕黄帝曾在此设坛祭天，登顶可一览王屋山全貌，是王屋山的标志性景观。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.8/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 清晨观云海</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 愚公移山群雕 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755726284799.png" alt="愚公移山群雕" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-people-group"></i>
+                        愚公移山群雕
+                    </h3>
+                    <p class="scenery-card-desc">高10.5米，刻画愚公及子孙挖山场景，生动体现“改造中国”的坚韧精神。群雕旁保留有愚公故居、古井等战国风貌展示区。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.9/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 阳台宫 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755725590223.png" alt="阳台宫" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-place-of-worship"></i>
+                        阳台宫
+                    </h3>
+                    <p class="scenery-card-desc">王屋山道教建筑起点，现存明代三清殿与玉皇阁。玉皇阁为三重檐阁式建筑，石刻柱雕有云龙、八仙过海等精美图案，艺术价值极高。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.7/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. 自然与生态奇观分类 -->
+        <h2 class="category-title">自然与生态奇观</h2>
+        <div class="scenery-list">
+            <!-- 千年银杏 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755726306888.png" alt="千年银杏" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-tree"></i>
+                        千年银杏
+                    </h3>
+                    <p class="scenery-card-desc">树龄2500年的古银杏树，高45米，树干需7人合围。每到秋季，满树金黄，是王屋山的道教神树，也是游客必打卡的景观。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.6/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 10月下旬-11月</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 王母洞与灵山洞 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755726964431.png" alt="王母洞与灵山洞" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-cave"></i>
+                        王母洞与灵山洞
+                    </h3>
+                    <p class="scenery-card-desc">天然溶洞深60余米，传说为王母娘娘修炼之地。洞内冬暖夏凉，钟乳石形态各异，石笋、石柱等岩溶景观丰富。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.5/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 夏季</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 地质与登山景观分类 -->
+        <h2 class="category-title">地质与登山景观</h2>
+        <div class="scenery-list">
+            <!-- 天坛神路 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755726952145.png" alt="天坛神路" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-person-hiking"></i>
+                        天坛神路
+                    </h3>
+                    <p class="scenery-card-desc">4公里山脊步道，连接看山庙、雷公庙等十余座小庙，需攀爬463级台阶，沿途可见女娲补天石、仙人桥等奇石景观。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.6/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 天坛索道 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755727061383.png" alt="天坛索道" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-cable-car"></i>
+                        天坛索道
+                    </h3>
+                    <p class="scenery-card-desc">全长1526米，提升高度660米（1号支架高86米，亚洲第一）。原需3小时登山路程，乘索道仅10分钟可达日精峰，再步行30分钟至天坛顶。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.5/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 道教文化遗址分类 -->
+        <h2 class="category-title">道教文化遗址</h2>
+        <div class="scenery-list">
+            <!-- 轩辕殿 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755727345196.png" alt="轩辕殿" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-landmark"></i>
+                        轩辕殿
+                    </h3>
+                    <p class="scenery-card-desc">轩辕黄帝访广成子问道之地，后为司马承祯著经处。现存建筑基址，坐北朝南，建筑主轴直对天坛峰，风水格局极佳。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.6/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 紫微宫 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://b9edaf4.webp.li/docs/1755727352978.png" alt="紫微宫" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-torii-gate"></i>
+                        紫微宫
+                    </h3>
+                    <p class="scenery-card-desc">王屋山道教“三宫”之首，建于高台之上，对应星象紫微垣，寓意道教中枢之地，建筑风格古朴大气，文化底蕴深厚。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.5/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 全年</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 王屋红叶 -->
+            <div class="scenery-card">
+                <div class="scenery-img-wrapper">
+                    <img src="https://picsum.photos/id/15/1000/500" alt="王屋红叶" class="scenery-card-img">
+                </div>
+                <div class="scenery-card-content">
+                    <h3 class="scenery-card-title">
+                        <i class="fa-solid fa-leaf"></i>
+                        王屋红叶
+                    </h3>
+                    <p class="scenery-card-desc">10月底至11月中旬，王屋山百里层林尽染，红叶景观以玉斗峰、华盖峰周边最盛。华盖峰春有桃花、秋有红叶，又称“花果山”。</p>
+                    <div class="scenery-card-meta">
+                        <span><i class="fa-solid fa-star"></i>推荐指数: 4.6/5</span>
+                        <span><i class="fa-solid fa-clock"></i>最佳时段: 10月下旬-11月</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- 页脚 - 统一风格 -->
+    <footer class="footer">
+        <p>© 2025 王屋山旅游官网 版权所有 | 豫ICP备12345678号</p>
+    </footer>
+    <script>              // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });</script>
+</body>
+</html>

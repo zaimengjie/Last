@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 修改：页面标题同步更新为愚公智旅 -->
+    <title>王屋山 - 概况 | 愚公智旅</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+/* 概况页面专属样式（丰富细节版） */
+:root {
+    /* 基础配色+纹理 */
+    --page-bg: #F9F9F9 url('https://picsum.photos/id/307/1920/1080') center/cover no-repeat fixed;
+    --page-bg-opacity: rgba(249, 249, 249, 0.95);
+    
+    --geo-color: #E8F4F8 url('https://picsum.photos/id/152/1000/1000') center/cover no-repeat;
+    --nature-color: #F0F8F4 url('https://picsum.photos/id/292/1000/1000') center/cover no-repeat;
+    --culture-color: #FDF2F8 url('https://picsum.photos/id/175/1000/1000') center/cover no-repeat;
+    --village-color: #F8F5F0 url('https://picsum.photos/id/283/1000/1000') center/cover no-repeat;
+    --history-color: #F5F5F5 url('https://picsum.photos/id/365/1000/1000') center/cover no-repeat;
+    --develop-color: #F7FAFC url('https://picsum.photos/id/429/1000/1000') center/cover no-repeat;
+    
+    --geo-border: #4299E1;
+    --nature-border: #48BB78;
+    --culture-border: #9F7AEA;
+    --village-border: #ED8936;
+    --history-border: #38B2AC;
+    --develop-border: #4299E1;
+    
+    --text-main: #2D3748;
+    --text-sub: #6B7280;
+}
+
+/* 页面整体背景（带极淡纹理） */
+body {
+    background: var(--page-bg);
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--page-bg-opacity);
+    z-index: -1;
+}
+
+/* ===== 顶部导航栏 - 优化版 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+/* ========== 导航栏优化结束 ========== */
+
+/* Banner优化（增加分隔装饰） */
+.page-banner {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.8), rgba(72, 187, 120, 0.7)), 
+                url('./picture-master/20250822142507973.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.page-banner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--geo-border), var(--nature-border), var(--culture-border), var(--village-border), var(--history-border), var(--develop-border));
+}
+.page-banner h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    margin-top: 0;
+}
+.page-banner p {
+    font-size: 16px;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    margin: 0;
+}
+
+.overview-section {
+    padding: 0 0 60px;
+}
+.overview-section .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 模块卡片（带主题纹理+装饰） */
+.overview-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 28px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    border-left: 3px solid #000;
+    background-color: #fff;
+    background-blend-mode: overlay;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+.overview-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.02) 50%);
+    border-radius: 0 8px 0 0;
+}
+.overview-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* 各模块差异化（背景纹理+主题图标） */
+.overview-card:nth-child(1) {
+    background: var(--geo-color);
+    border-left-color: var(--geo-border);
+}
+.overview-card:nth-child(1) .section-subtitle::before {
+    content: "\f3c5"; /* 地图图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--geo-border);
+    margin-right: 8px;
+}
+
+.overview-card:nth-child(2) {
+    background: var(--nature-color);
+    border-left-color: var(--nature-border);
+}
+.overview-card:nth-child(2) .section-subtitle::before {
+    content: "\f06c"; /* 树叶图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--nature-border);
+    margin-right: 8px;
+}
+
+.overview-card:nth-child(3) {
+    background: var(--culture-color);
+    border-left-color: var(--culture-border);
+}
+.overview-card:nth-child(3) .section-subtitle::before {
+    content: "\f518"; /* 卷轴图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--culture-color);
+    margin-right: 8px;
+}
+
+.overview-card:nth-child(4) {
+    background: var(--village-color);
+    border-left-color: var(--village-border);
+}
+.overview-card:nth-child(4) .section-subtitle::before {
+    content: "\f724"; /* 房屋图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--village-border);
+    margin-right: 8px;
+}
+
+.overview-card:nth-child(5) {
+    background: var(--history-color);
+    border-left-color: var(--history-border);
+}
+.overview-card:nth-child(5) .section-subtitle::before {
+    content: "\f517"; /* 历史图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--history-border);
+    margin-right: 8px;
+}
+
+.overview-card:nth-child(6) {
+    background: var(--develop-color);
+    border-left-color: var(--develop-border);
+}
+.overview-card:nth-child(6) .section-subtitle::before {
+    content: "\f0e7"; /* 发展图标 */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--develop-border);
+    margin-right: 8px;
+}
+
+/* 标题样式（带图标） */
+.overview-card .section-subtitle {
+    font-size: 22px;
+    margin-bottom: 18px;
+    padding-left: 0;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+}
+
+/* 内容排版（增加分隔线） */
+.overview-content {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+.overview-img {
+    flex: 1;
+    min-width: 280px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.08);
+}
+.overview-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+}
+.overview-text {
+    flex: 2;
+    min-width: 280px;
+}
+.overview-text p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-sub);
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 12px;
+    margin-top: 0;
+}
+.overview-text p::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 50%;
+}
+
+/* 底部样式补充 */
+.footer {
+    background-color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+    margin-top: 20px;
+}
+.footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+.footer p {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin: 0;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .top-nav {
+        gap: 15px;
+    }
+    .logo {
+        font-size: 16px;
+        height: 35px;
+    }
+    /* 响应式调整Logo文字大小 */
+    .logo-text {
+        font-size: 16px;
+    }
+    .nav-link {
+        font-size: 14px;
+    }
+    .page-banner h1 {
+        font-size: 32px;
+    }
+    .overview-content {
+        flex-direction: column;
+        gap: 18px;
+    }
+    .overview-card {
+        padding: 20px;
+    }
+
+    /* 顶部导航栏颜色微调（更贴合王屋山气质） */
+.top-header {
+    background: #FAF5EF url('https://picsum.photos/id/283/1920/100') center/cover no-repeat; /* 浅米色+村落纹理 */
+    background-blend-mode: overlay;
+    border-bottom: 1px solid rgba(139, 90, 43, 0.1); /* 暖棕边框 */
+}
+.nav-link:hover {
+    color: #8B5A2B; /* 暖棕hover色 */
+}
+.nav-link::before {
+    background: #8B5A2B; /* 暖棕小蓝点 */
+}
+.nav-link::after {
+    background: linear-gradient(90deg, #8B5A2B, #CD853F); /* 暖棕渐变下划线 */
+}
+
+}
+/* 回到顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2E8B57, #3498db);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面头部banner -->
+    <section class="page-banner">
+        <div class="page-banner-content">
+            <h1>王屋山概况</h1>
+            <p>太行深处的洞天秘境 · 千年道教文化圣地</p>
+        </div>
+    </section>
+
+    <!-- 概况核心内容区（按指定6个模块排序） -->
+    <section class="overview-section">
+        <div class="container">
+            <!-- 1. 地理位置 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">地理位置</h2>
+                <div class="overview-content">
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142555711.jpg" alt="王屋山地理位置">
+                    </div>
+                    <div class="overview-text">
+                        <p>位于河南省济源市，属太行山脉东延部分，距市区距离适中。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 自然与资源 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">自然与资源</h2>
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <p>主峰天坛山海拔较高，山体独特。</p>
+                        <p>植被覆盖好，可能有珍稀动植物及温泉、矿产等资源。</p>
+                    </div>
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142635372.jpg" alt="王屋山自然与资源">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 文明瑰宝 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">文明瑰宝</h2>
+                <div class="overview-content">
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142708737.jpg" alt="王屋山文明瑰宝">
+                    </div>
+                    <div class="overview-text">
+                        <p>李白、杜甫等文人曾游历，留下《上阳台帖》等文化遗迹。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 愚公村 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">愚公村</h2>
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <p>位于王屋镇，距王屋山景区近，有一定户数、人口及占地面积。</p>
+                    </div>
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142724956.jpg" alt="王屋山愚公村">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 历史与文化 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">历史与文化</h2>
+                <div class="overview-content">
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142742427.jpg" alt="王屋山历史与文化">
+                    </div>
+                    <div class="overview-text">
+                        <p>作为 “愚公移山” 故事发源地，《列子・汤问》有记载，是坚韧不拔精神的象征。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 现状与发展 -->
+            <div class="overview-card">
+                <h2 class="section-subtitle">现状与发展</h2>
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <p>文旅村落，为游客提供餐饮、住宿等配套服务。</p>
+                        <p>经美丽乡村建设改造，融合传统村落肌理与现代旅游功能，是连接王屋山历史与当下的纽带，传承愚公精神。</p>
+                    </div>
+                    <div class="overview-img">
+                        <img src="./picture-master/20250822142757600.jpg" alt="王屋山现状与发展">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- 底部版权（和首页一致） -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 愚公智旅 版权所有 | 豫ICP备12345678号</p>
+        </div>
+    </footer>
+
+    <script >              // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        </script>
+</body>
+</html>

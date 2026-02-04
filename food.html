@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王屋山美食 | 智绘王屋行 - 舌尖上的山水之旅</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
+    <style>
+/* 全局样式重置+基础配置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "PingFang SC", "Microsoft Yahei", sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #333;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+
+
+/* 页面标题栏 - 更吸引人的设计 */
+.page-header {
+    background: linear-gradient(135deg, rgba(46, 139, 87, 0.9) 0%, rgba(52, 152, 219, 0.9) 100%);
+    padding: 30px 24px;
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 30px rgba(46, 139, 87, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+.page-header:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+}
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    position: relative;
+}
+.page-title:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #FFD700;
+    margin: 10px auto;
+    border-radius: 3px;
+}
+.subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 12px 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 10;
+}
+.search-box input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    outline: none;
+    color: #333;
+    padding: 5px;
+    pointer-events: auto;
+}
+.search-box i {
+    color: #2E8B57;
+    font-size: 18px;
+}
+/* 关键修复：删除z-index: -999，新增z-index: 10确保按钮可点击 */
+.sort-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    z-index: 10;
+    position: relative;
+}
+.sort-tab {
+    padding: 8px 24px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 500;
+    /* 新增：确保按钮可点击 */
+    pointer-events: auto;
+}
+.sort-tab.active {
+    background: #FF6B6B;
+    color: white;
+    border-color: #FF6B6B;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    transform: translateY(-2px);
+}
+.sort-tab:not(.active):hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+/* 页面容器 */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+}
+
+/* 美食卡片列表 - 网格布局 */
+.food-list {
+    display: grid;
+    gap: 20px;
+}
+
+/* 美食卡片 - 现代化设计 */
+.food-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(46, 139, 87, 0.1);
+}
+.food-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(46, 139, 87, 0.15);
+    border-color: rgba(46, 139, 87, 0.3);
+}
+
+/* 收藏按钮样式 */
+.food-fav {
+    position: absolute;
+    top: -2px;
+    right: 22px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+.food-fav:hover {
+    background: white;
+    color: #FF6B6B;
+    transform: scale(1.1);
+}
+.food-fav.active {
+    color: #FF6B6B;
+}
+.food-fav i {
+    font-size: 16px;
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.95); }
+}
+
+/* 美食图片容器 - 优化 */
+.food-img-wrapper {
+    width: 150px;
+    height: 120px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 15px 0 0 15px;
+    position: relative;
+}
+.food-img-wrapper:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(46,139,87,0.1) 0%, rgba(52,152,219,0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.food-card:hover .food-img-wrapper:after {
+    opacity: 1;
+}
+.food-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.food-card:hover .food-card-img {
+    transform: scale(1.05);
+}
+
+/* 美食内容区 */
+.food-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 20px 20px 0;
+}
+.food-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.food-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2c3e50;
+    position: relative;
+    display: inline-block;
+}
+.food-card-title:after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #2E8B57;
+    transition: width 0.3s ease;
+}
+.food-card:hover .food-card-title:after {
+    width: 100%;
+}
+.food-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: #FFD700;
+    font-size: 14px;
+}
+.food-card-rating span {
+    font-size: 14px;
+    color: #666;
+    margin-left: 8px;
+    font-weight: 600;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+.food-card-desc {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.food-card-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+.food-card-tag {
+    background: linear-gradient(135deg, #E8F4F8, #d4e9f7);
+    color: #4299E1;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+.food-card-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(66, 153, 225, 0.2);
+}
+.food-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: #777;
+    border-top: 1px solid rgba(46, 139, 87, 0.1);
+    padding-top: 12px;
+}
+.food-card-footer i {
+    margin-right: 5px;
+}
+.food-card-footer .thumbs-up {
+    color: #FF6B6B;
+}
+.food-card-footer .comment-icon {
+    color: #3498db;
+}
+.food-card-footer .share-btn {
+    margin-left: auto;
+    color: #2E8B57;
+    cursor: pointer;
+    padding: 5px 12px;
+    border-radius: 15px;
+    background: rgba(46, 139, 87, 0.08);
+    transition: all 0.3s ease;
+}
+.food-card-footer .share-btn:hover {
+    background: rgba(46, 139, 87, 0.15);
+    transform: translateX(3px);
+}
+
+/* 新增：点赞按钮样式优化 */
+.like-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: rgba(255, 107, 107, 0.05);
+}
+.like-btn:hover {
+    background: rgba(255, 107, 107, 0.1);
+    transform: translateY(-2px);
+}
+.like-btn.liked {
+    color: #FF6B6B;
+    font-weight: 600;
+}
+.like-btn.liked i {
+    color: #FF6B6B;
+    animation: likeBounce 0.5s ease;
+}
+@keyframes likeBounce {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(0.9); }
+    75% { transform: scale(1.1); }
+}
+
+/* 新增：评论按钮样式优化 */
+.comment-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    background: rgba(52, 152, 219, 0.05);
+}
+.comment-btn:hover {
+    background: rgba(52, 152, 219, 0.1);
+    transform: translateY(-2px);
+}
+
+/* 无更多内容提示 */
+.no-more-tip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(46, 139, 87, 0.9);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.3);
+}
+
+/* 滚动到底部提示 */
+.scroll-bottom-tip {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #2E8B57, #3498db);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+.scroll-bottom-tip.show {
+    display: block;
+    opacity: 1;
+}
+
+/* 页脚 */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 50px;
+    position: relative;
+}
+.footer:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2E8B57, #3498db, #FF6B6B);
+}
+.footer p {
+    opacity: 0.8;
+}
+
+/* 加载动画 */
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #2E8B57;
+    display: none;
+}
+
+/* 响应式适配 */
+@media (max-width: 768px) {
+    .top-header {
+        padding: 12px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .top-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .page-header {
+        padding: 25px 20px;
+        border-radius: 0 0 20px 20px;
+    }
+    .page-title {
+        font-size: 24px;
+    }
+    .food-card {
+        flex-direction: column;
+        gap: 0;
+    }
+    .food-img-wrapper {
+        width: 100%;
+        height: 150px;
+        border-radius: 15px 15px 0 0;
+    }
+    .food-card-content {
+        padding: 15px;
+    }
+    .sort-tabs {
+        gap: 10px;
+    }
+    .sort-tab {
+        padding: 6px 15px;
+        font-size: 13px;
+    }
+    .food-card-footer {
+        gap: 12px;
+        font-size: 12px;
+        flex-wrap: wrap;
+    }
+    .like-btn, .comment-btn, .share-btn {
+        padding: 4px 8px;
+    }
+}
+
+/* 添加美食卡片进入动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.food-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+.food-card:nth-child(1) { animation-delay: 0.1s; }
+.food-card:nth-child(2) { animation-delay: 0.2s; }
+.food-card:nth-child(3) { animation-delay: 0.3s; }
+.food-card:nth-child(4) { animation-delay: 0.4s; }
+.food-card:nth-child(5) { animation-delay: 0.5s; }
+.food-card:nth-child(6) { animation-delay: 0.6s; }
+.food-card:nth-child(7) { animation-delay: 0.7s; }
+.food-card:nth-child(8) { animation-delay: 0.8s; }
+.food-card:nth-child(9) { animation-delay: 0.9s; }
+.food-card:nth-child(10) { animation-delay: 1s; }
+
+/* 消息提示动画 */
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #2E8B57, #3498db);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(46, 139, 87, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+.back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+}
+
+/* 新增：评论弹窗样式 */
+.comment-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.comment-modal.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.comment-content {
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+.comment-header {
+    background: linear-gradient(135deg, #2E8B57, #3498db);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.close-comment {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+}
+.comment-body {
+    padding: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+.comment-list {
+    margin-bottom: 20px;
+}
+.comment-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+.comment-item:last-child {
+    border-bottom: none;
+}
+.comment-user {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+.comment-text {
+    color: #666;
+    line-height: 1.5;
+    font-size: 14px;
+}
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+    min-height: 100px;
+}
+.comment-form textarea:focus {
+    outline: none;
+    border-color: #2E8B57;
+}
+.comment-form button {
+    background: #2E8B57;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    float: right;
+}
+.comment-form button:hover {
+    background: #247a4d;
+    transform: translateY(-2px);
+}
+.no-comments {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+    font-style: italic;
+}
+
+
+/* ===== 顶部导航栏 - 优化版 ===== */
+.top-header {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #E1E8ED;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 24px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #2E8B57;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: rotate(-5deg) scale(1.05);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-main {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2E8B57, #4682B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: #78909C;
+    font-weight: 500;
+    margin-top: -2px;
+}
+
+.top-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    color: #546E7A;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #2E8B57;
+    background: rgba(46, 139, 87, 0.1);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: #2E8B57;
+    border-radius: 2px;
+}
+
+.nav-link i {
+    font-size: 16px;
+}
+
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="top-header">
+        <div class="header-wrapper">
+            <a href="index.html" class="logo">
+                <img src="./picture-master/20250823180019089.jpg" alt="愚公智旅" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-main">愚公智旅</span>
+                    <span class="logo-sub">智绘王屋行</span>
+                </div>
+            </a>
+            <nav class="top-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fa-solid fa-house"></i>
+                    <span>首页</span>
+                </a>
+                <a href="team.html" class="nav-link">
+                    <i class="fa-solid fa-people-group"></i>
+                    <span>团队</span>
+                </a>
+                <a href="home.html" class="nav-link">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>主页</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 页面标题+搜索+排序栏 -->
+    <div class="page-header">
+        <h1 class="page-title">王屋山美食地图</h1>
+        <p class="subtitle">探寻山水之间的地道风味，感受舌尖上的文化传承</p>
+        <div class="search-box">
+           <input type="text" placeholder="搜索美食名称、口味或特色..." id="searchInput">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="sort-tabs">
+            <div class="sort-tab active" id="sortDefault">
+                <i class="fa-solid fa-list"></i> 默认
+            </div>
+            <div class="sort-tab" id="sortRating">
+                <i class="fa-solid fa-star"></i> 评分
+            </div>
+            <div class="sort-tab" id="sortHot">
+                <i class="fa-solid fa-fire"></i> 热度
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心内容区 -->
+    <div class="container">
+        <div class="food-list" id="foodList">
+            <!-- 1. 冰爆爽 -->
+            <div class="food-card" data-rating="5" data-hot="24">
+                <div class="food-fav active" id="fav1">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144022122.jpg" alt="冰爆爽" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">冰爆爽</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">本品口感清凉爽口，果香适中，是一款具有解渴功能的饮品。采用山泉水和天然水果制成，是夏日消暑的绝佳选择。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">饮品</span>
+                            <span class="food-card-tag">清凉</span>
+                            <span class="food-card-tag">解渴</span>
+                            <span class="food-card-tag">夏季限定</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <!-- 修改：用class代替原来的结构 -->
+                        <span class="like-btn" data-id="1" data-count="24">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">24</span>
+                        </span>
+                        <span class="comment-btn" data-id="1" data-count="5">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">5</span>
+                        </span>
+                        <span class="share-btn" id="share1"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 野菜水饺 -->
+            <div class="food-card" data-rating="5" data-hot="20">
+                <div class="food-fav" id="fav2">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144047179.jpg" alt="野菜水饺" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">野菜水饺</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <span>5.0</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">采用山间野菜为馅料，味道清新，体现自然风味。现包现煮，皮薄馅足，每一口都是大自然的馈赠。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">主食</span>
+                            <span class="food-card-tag">野菜</span>
+                            <span class="food-card-tag">健康</span>
+                            <span class="food-card-tag">手工制作</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="2" data-count="20">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">20</span>
+                        </span>
+                        <span class="comment-btn" data-id="2" data-count="6">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">6</span>
+                        </span>
+                        <span class="share-btn" id="share2"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 裤带面 -->
+            <div class="food-card" data-rating="4.8" data-hot="18">
+                <div class="food-fav" id="fav3">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144103386.jpg" alt="裤带面" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">裤带面</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">面条形似裤带，手工制作而成，质地劲道，体现地方饮食风格。搭配秘制酱料，味道浓郁，回味无穷。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">面食</span>
+                            <span class="food-card-tag">手工</span>
+                            <span class="food-card-tag">劲道</span>
+                            <span class="food-card-tag">特色主食</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="3" data-count="18">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">18</span>
+                        </span>
+                        <span class="comment-btn" data-id="3" data-count="2">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">2</span>
+                        </span>
+                        <span class="share-btn" id="share3"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 柿子饼 -->
+            <div class="food-card" data-rating="4.5" data-hot="21">
+                <div class="food-fav active" id="fav4">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144116558.jpg" alt="柿子饼" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">柿子饼</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">以霜后甜柿为原料经自然晾晒制成，口感软糯，风味香甜。传统工艺制作，保留了柿子的原汁原味。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">甜点</span>
+                            <span class="food-card-tag">传统</span>
+                            <span class="food-card-tag">果脯</span>
+                            <span class="food-card-tag">伴手礼</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="4" data-count="21">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">21</span>
+                        </span>
+                        <span class="comment-btn" data-id="4" data-count="5">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">5</span>
+                        </span>
+                        <span class="share-btn" id="share4"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. 土馍 -->
+            <div class="food-card" data-rating="4.6" data-hot="16">
+                <div class="food-fav" id="fav5">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144126268.jpg" alt="土馍" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">土馍</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">济源特色食品，经独特工艺焙制，质地酥脆，风味质朴。历经百年传承，是王屋山地区的代表性美食。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">特产</span>
+                            <span class="food-card-tag">酥脆</span>
+                            <span class="food-card-tag">传统</span>
+                            <span class="food-card-tag">地方特色</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="5" data-count="16">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">16</span>
+                        </span>
+                        <span class="comment-btn" data-id="5" data-count="2">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">2</span>
+                        </span>
+                        <span class="share-btn" id="share5"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. 麻糖 -->
+            <div class="food-card" data-rating="4.4" data-hot="9">
+                <div class="food-fav" id="fav6">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144140840.jpg" alt="麻糖" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">麻糖</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>4.4</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">采用老面发酵工艺，成品麦香明显，口感软韧，微甜不腻。每一块都是纯手工制作，传承古法技艺。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">甜点</span>
+                            <span class="food-card-tag">传统</span>
+                            <span class="food-card-tag">手工</span>
+                            <span class="food-card-tag">童年记忆</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="6" data-count="9">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">9</span>
+                        </span>
+                        <span class="comment-btn" data-id="6" data-count="3">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">3</span>
+                        </span>
+                        <span class="share-btn" id="share6"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. 鸡蛋不翻 -->
+            <div class="food-card" data-rating="4.7" data-hot="14">
+                <div class="food-fav active" id="fav7">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144154778.jpg" alt="鸡蛋不翻" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">鸡蛋不翻</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">鸡蛋不翻为济源非物质文化遗产，其制作工艺传统，成品焦香可口。早餐首选，唤醒一天好心情。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">早餐</span>
+                            <span class="food-card-tag">非遗</span>
+                            <span class="food-card-tag">特色</span>
+                            <span class="food-card-tag">快捷美食</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="7" data-count="14">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">14</span>
+                        </span>
+                        <span class="comment-btn" data-id="7" data-count="6">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">6</span>
+                        </span>
+                        <span class="share-btn" id="share7"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. 炉馍 -->
+            <div class="food-card" data-rating="4.9" data-hot="17">
+                <div class="food-fav" id="fav8">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144209405.jpg" alt="炉馍" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">炉馍</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">王屋山炉馍以古法烤制，出炉时麦香扑鼻，外皮微酥，内里暄软带甜，是当地节庆必备的传统糕点。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">糕点</span>
+                            <span class="food-card-tag">传统</span>
+                            <span class="food-card-tag">香酥</span>
+                            <span class="food-card-tag">节庆美食</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="8" data-count="17">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">17</span>
+                        </span>
+                        <span class="comment-btn" data-id="8" data-count="7">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">7</span>
+                        </span>
+                        <span class="share-btn" id="share8"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. 芝麻烧饼 -->
+            <div class="food-card" data-rating="4.3" data-hot="11">
+                <div class="food-fav" id="fav9">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144220350.jpg" alt="芝麻烧饼" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">芝麻烧饼</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>4.3</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">脆掉渣的外皮包裹卤香四溢的肉馅，趁热食用，香气扑鼻。每一口都是酥脆与香浓的完美结合。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">快餐</span>
+                            <span class="food-card-tag">肉食</span>
+                            <span class="food-card-tag">酥脆</span>
+                            <span class="food-card-tag">便携小吃</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="9" data-count="11">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">11</span>
+                        </span>
+                        <span class="comment-btn" data-id="9" data-count="3">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">3</span>
+                        </span>
+                        <span class="share-btn" id="share9"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. 牛肉丸子 -->
+            <div class="food-card" data-rating="4.2" data-hot="8">
+                <div class="food-fav" id="fav10">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="food-img-wrapper">
+                    <img src="./picture-master/20250822144231728.jpg" alt="牛肉丸子" class="food-card-img">
+                </div>
+                <div class="food-card-content">
+                    <div>
+                        <div class="food-card-header">
+                            <h3 class="food-card-title">牛肉丸子</h3>
+                            <div class="food-card-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <span>4.2</span>
+                            </div>
+                        </div>
+                        <p class="food-card-desc">外酥内嫩，以牛肉为主要原料，肉香浓郁，适合佐餐。精选本地黄牛肉，传统手打工艺制作。</p>
+                        <div class="food-card-tags">
+                            <span class="food-card-tag">小吃</span>
+                            <span class="food-card-tag">肉食</span>
+                            <span class="food-card-tag">油炸</span>
+                            <span class="food-card-tag">下酒菜</span>
+                        </div>
+                    </div>
+                    <div class="food-card-footer">
+                        <span class="like-btn" data-id="10" data-count="8">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span class="like-count">8</span>
+                        </span>
+                        <span class="comment-btn" data-id="10" data-count="3">
+                            <i class="fa-solid fa-comment"></i>
+                            <span class="comment-count">3</span>
+                        </span>
+                        <span class="share-btn" id="share10"><i class="fa-solid fa-share"></i>分享</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 评论弹窗 -->
+    <div class="comment-modal" id="commentModal">
+        <div class="comment-content">
+            <div class="comment-header">
+                <h3 id="commentTitle">评论</h3>
+                <button class="close-comment" id="closeComment">&times;</button>
+            </div>
+            <div class="comment-body">
+                <div class="comment-list" id="commentList">
+                    <!-- 评论将动态添加到这里 -->
+                    <div class="no-comments" id="noComments">暂无评论，快来发表第一条评论吧！</div>
+                </div>
+                <div class="comment-form">
+                    <textarea id="commentInput" placeholder="请输入您的评论..."></textarea>
+                    <button id="submitComment">发表评论</button>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 滚动到底部提示 -->
+    <div class="scroll-bottom-tip" id="scrollTip">
+        <i class="fa-solid fa-utensils"></i> 已探索全部美食，期待您的品尝！
+    </div>
+        <!-- 回到顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </div>
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 王屋山旅游官网 版权所有 | 豫ICP备12345678号</p>
+        <p style="margin-top: 5px; font-size: 12px;">品味王屋山水，传承美食文化</p>
+    </footer>
+
+    <!-- 功能脚本 -->
+    <script>
+        // 数据存储 - 模拟点赞和评论数据
+        const foodData = {
+            1: { name: "冰爆爽", likes: 24, liked: false, comments: [
+                { user: "游客小明", text: "夏天喝这个太爽了！" },
+                { user: "美食家老王", text: "口感确实不错，推荐！" }
+            ]},
+            2: { name: "野菜水饺", likes: 20, liked: false, comments: [
+                { user: "健康饮食", text: "野菜很新鲜，味道不错" }
+            ]},
+            3: { name: "裤带面", likes: 18, liked: false, comments: [] },
+            4: { name: "柿子饼", likes: 21, liked: false, comments: [
+                { user: "传统美食", text: "小时候的味道" }
+            ]},
+            5: { name: "土馍", likes: 16, liked: false, comments: [] },
+            6: { name: "麻糖", likes: 9, liked: false, comments: [] },
+            7: { name: "鸡蛋不翻", likes: 14, liked: false, comments: [
+                { user: "早餐爱好者", text: "每天早餐必备" }
+            ]},
+            8: { name: "炉馍", likes: 17, liked: false, comments: [] },
+            9: { name: "芝麻烧饼", likes: 11, liked: false, comments: [] },
+            10: { name: "牛肉丸子", likes: 8, liked: false, comments: [] }
+        };
+
+        let currentFoodId = null;
+
+        // 回到顶部功能
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 排序功能
+        function sortFood(type) {
+            document.querySelectorAll('.sort-tab').forEach(tab => tab.classList.remove('active'));
+            
+            if (type === 'default') {
+                document.getElementById('sortDefault').classList.add('active');
+            } else if (type === 'rating') {
+                document.getElementById('sortRating').classList.add('active');
+            } else if (type === 'hot') {
+                document.getElementById('sortHot').classList.add('active');
+            }
+            
+            const foodList = document.getElementById('foodList');
+            const foods = Array.from(foodList.children);
+            
+            if (type === 'rating') {
+                foods.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
+            } else if (type === 'hot') {
+                foods.sort((a, b) => parseInt(b.dataset.hot) - parseInt(a.dataset.hot));
+            } else {
+                foods.sort((a, b) => {
+                    const defaultOrder = ['冰爆爽', '野菜水饺', '裤带面', '柿子饼', '土馍', '麻糖', '鸡蛋不翻', '炉馍', '芝麻烧饼', '牛肉丸子'];
+                    const nameA = a.querySelector('.food-card-title').textContent;
+                    const nameB = b.querySelector('.food-card-title').textContent;
+                    return defaultOrder.indexOf(nameA) - defaultOrder.indexOf(nameB);
+                });
+            }
+            
+            foodList.innerHTML = '';
+            foods.forEach((food, index) => {
+                food.style.animationDelay = `${index * 0.1}s`;
+                foodList.appendChild(food);
+            });
+            
+            bindAllEvents();
+            showMessage('排序完成！', '#2E8B57');
+        }
+
+        // 收藏功能
+        function toggleFav(el) {
+            el.classList.toggle('active');
+            const icon = el.querySelector('i');
+            icon.classList.toggle('fa-regular');
+            icon.classList.toggle('fa-solid');
+            
+            const foodName = el.closest('.food-card').querySelector('.food-card-title').textContent;
+            if (el.classList.contains('active')) {
+                showMessage(`已收藏 "${foodName}"`, '#FF6B6B');
+            } else {
+                showMessage(`已取消收藏 "${foodName}"`, '#666');
+            }
+        }
+
+        // 点赞功能
+        function likeFood(btn) {
+            const foodId = btn.getAttribute('data-id');
+            const foodInfo = foodData[foodId];
+            const likeCount = btn.querySelector('.like-count');
+            
+            if (foodInfo.liked) {
+                // 取消点赞
+                foodInfo.likes--;
+                foodInfo.liked = false;
+                btn.classList.remove('liked');
+                btn.querySelector('i').className = 'fa-solid fa-thumbs-up';
+                showMessage(`已取消点赞 ${foodInfo.name}`, '#999');
+            } else {
+                // 点赞
+                foodInfo.likes++;
+                foodInfo.liked = true;
+                btn.classList.add('liked');
+                btn.querySelector('i').className = 'fa-solid fa-thumbs-up';
+                showMessage(`已点赞 ${foodInfo.name}`, '#FF6B6B');
+            }
+            
+            likeCount.textContent = foodInfo.likes;
+            btn.setAttribute('data-count', foodInfo.likes);
+        }
+
+        // 评论功能
+        function openCommentModal(foodId) {
+            currentFoodId = foodId;
+            const foodInfo = foodData[foodId];
+            const modal = document.getElementById('commentModal');
+            const commentList = document.getElementById('commentList');
+            const commentTitle = document.getElementById('commentTitle');
+            const noComments = document.getElementById('noComments');
+            
+            // 更新标题
+            commentTitle.textContent = `${foodInfo.name} - 评论`;
+            
+            // 清空并重新加载评论
+            commentList.innerHTML = '';
+            
+            if (foodInfo.comments.length > 0) {
+                noComments.style.display = 'none';
+                foodInfo.comments.forEach(comment => {
+                    const commentItem = document.createElement('div');
+                    commentItem.className = 'comment-item';
+                    commentItem.innerHTML = `
+                        <div class="comment-user">${comment.user}</div>
+                        <div class="comment-text">${comment.text}</div>
+                    `;
+                    commentList.appendChild(commentItem);
+                });
+            } else {
+                noComments.style.display = 'block';
+                noComments.textContent = '暂无评论，快来发表第一条评论吧！';
+                commentList.appendChild(noComments);
+            }
+            
+            // 打开弹窗
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 提交评论
+        function submitComment() {
+            const input = document.getElementById('commentInput');
+            const commentText = input.value.trim();
+            
+            if (!commentText) {
+                showMessage('请输入评论内容', '#FF6B6B');
+                return;
+            }
+            
+            if (!currentFoodId) return;
+            
+            const foodInfo = foodData[currentFoodId];
+            
+            // 添加新评论
+            const newComment = {
+                user: getRandomUserName(),
+                text: commentText
+            };
+            
+            foodInfo.comments.unshift(newComment);
+            
+            // 更新评论数
+            const commentBtn = document.querySelector(`.comment-btn[data-id="${currentFoodId}"]`);
+            const commentCount = commentBtn.querySelector('.comment-count');
+            commentCount.textContent = foodInfo.comments.length;
+            commentBtn.setAttribute('data-count', foodInfo.comments.length);
+            
+            // 更新评论列表
+            const commentList = document.getElementById('commentList');
+            const noComments = document.getElementById('noComments');
+            
+            if (noComments) noComments.style.display = 'none';
+            
+            const commentItem = document.createElement('div');
+            commentItem.className = 'comment-item';
+            commentItem.innerHTML = `
+                <div class="comment-user">${newComment.user}</div>
+                <div class="comment-text">${newComment.text}</div>
+            `;
+            
+            commentList.insertBefore(commentItem, commentList.firstChild);
+            
+            // 清空输入框
+            input.value = '';
+            
+            showMessage('评论发表成功！', '#2E8B57');
+        }
+
+        // 随机用户名生成
+        function getRandomUserName() {
+            const names = ['游客小明', '美食家老王', '旅行达人', '吃货小张', '美食侦探', '王屋山访客'];
+            return names[Math.floor(Math.random() * names.length)];
+        }
+
+        // 显示消息提示
+        function showMessage(msg, color) {
+            const oldMsg = document.querySelector('.message-tip');
+            if (oldMsg) oldMsg.remove();
+            
+            const msgEl = document.createElement('div');
+            msgEl.className = 'message-tip';
+            msgEl.textContent = msg;
+            msgEl.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${color};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                z-index: 9999;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2s forwards;
+            `;
+            document.body.appendChild(msgEl);
+            setTimeout(() => msgEl.remove(), 2300);
+        }
+
+        // 分享功能
+        function copyShareLink(el) {
+            const foodName = el.closest('.food-card').querySelector('.food-card-title').textContent;
+            navigator.clipboard.writeText(`https://wangwushan.com/food/${encodeURIComponent(foodName)}`)
+                .then(() => showMessage(`已复制"${foodName}"的分享链接`, '#3498db'))
+                .catch(() => showMessage('复制失败，请手动复制', '#FF6B6B'));
+        }
+
+        // 滚动到底部提示
+        function checkScrollPosition() {
+            const scrollTip = document.getElementById('scrollTip');
+            const isBottom = (document.documentElement.scrollHeight - document.documentElement.clientHeight - window.scrollY) < 100;
+            
+            if (isBottom) {
+                scrollTip.classList.add('show');
+                clearTimeout(scrollTip.timer);
+                scrollTip.timer = setTimeout(() => scrollTip.classList.remove('show'), 4000);
+            } else {
+                scrollTip.classList.remove('show');
+                clearTimeout(scrollTip.timer);
+            }
+        }
+
+        // 绑定所有事件
+        function bindAllEvents() {
+            // 收藏按钮
+            document.querySelectorAll('.food-fav').forEach(btn => {
+                btn.onclick = () => toggleFav(btn);
+            });
+            
+            // 点赞按钮
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    likeFood(btn);
+                };
+            });
+            
+            // 评论按钮
+            document.querySelectorAll('.comment-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const foodId = btn.getAttribute('data-id');
+                    openCommentModal(foodId);
+                };
+            });
+            
+            // 分享按钮
+            document.querySelectorAll('.share-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    copyShareLink(btn);
+                };
+            });
+            
+            // 排序按钮
+            document.getElementById('sortDefault').addEventListener('click', () => sortFood('default'));
+            document.getElementById('sortRating').addEventListener('click', () => sortFood('rating'));
+            document.getElementById('sortHot').addEventListener('click', () => sortFood('hot'));
+            
+            // 卡片点击
+            document.querySelectorAll('.food-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.food-fav') && !e.target.closest('.like-btn') && 
+                        !e.target.closest('.comment-btn') && !e.target.closest('.share-btn')) {
+                        const foodName = this.querySelector('.food-card-title').textContent;
+                        showMessage(`即将为您展示"${foodName}"的详细信息`, '#2E8B57');
+                    }
+                });
+            });
+        }
+
+        // 搜索功能
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const foodCards = document.querySelectorAll('.food-card');
+                
+                let visibleCount = 0;
+                
+                foodCards.forEach(card => {
+                    const title = card.querySelector('.food-card-title').textContent.toLowerCase();
+                    const desc = card.querySelector('.food-card-desc').textContent.toLowerCase();
+                    const tags = Array.from(card.querySelectorAll('.food-card-tag')).map(tag => tag.textContent.toLowerCase());
+                    
+                    const isMatch = title.includes(searchTerm) || 
+                                   desc.includes(searchTerm) || 
+                                   tags.some(tag => tag.includes(searchTerm));
+                    
+                    card.style.display = (searchTerm === '' || isMatch) ? 'flex' : 'none';
+                    if (searchTerm === '' || isMatch) visibleCount++;
+                });
+                
+                if (searchTerm !== '' && visibleCount === 0) {
+                    showMessage(`未找到包含"${searchTerm}"的美食`, '#FF6B6B');
+                }
+            });
+        }
+
+        // 初始化
+        window.onload = function() {
+            setupSearch();
+            bindAllEvents();
+            window.addEventListener('scroll', checkScrollPosition);
+            
+            // 评论弹窗相关事件
+            const commentModal = document.getElementById('commentModal');
+            const closeComment = document.getElementById('closeComment');
+            const submitCommentBtn = document.getElementById('submitComment');
+            
+            closeComment.addEventListener('click', () => {
+                commentModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            commentModal.addEventListener('click', (e) => {
+                if (e.target === commentModal) {
+                    commentModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            submitCommentBtn.addEventListener('click', submitComment);
+            
+            document.getElementById('commentInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    submitComment();
+                }
+            });
+            
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                const searchInput = document.getElementById('searchInput');
+                if (e.key === '/' && e.target !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+                if (e.key === 'Escape') {
+                    commentModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
